@@ -12,7 +12,6 @@ public class AddressBook {
     public static final Scanner sc = new Scanner(System.in);
     private static final ArrayList<ContactPerson> person = new ArrayList<>();
     private static HashMap<String, ArrayList<ContactPerson>> addressBookSystem = new HashMap<>();
-    private ContactPerson Contacts;
 
     /**
      * Creating method for getting input from user
@@ -41,9 +40,19 @@ public class AddressBook {
             String phoneNumber = sc.nextLine();
 
             ContactPerson contact = new ContactPerson(firstName, lastName, address, city, state, zipCode, eMail, phoneNumber);
-            person.add(Contacts);
             contact.addressBook();
+            String pName = firstName + lastName;
+            for (Iterator<ContactPerson> iterator = person.iterator(); iterator.hasNext();) {
+                ContactPerson temp = iterator.next();
+                String contactName =  temp.getFirstName() + temp.getLastName();
+                if(contactName.equals(pName)) {
+                    System.out.println("Sorry this contact already exists.");
+                    return; // the name exists, so we exit the method.
+                }
+            }
+            person.add(contact);    //Adding Contact list to ArrayList
         }
+
     }
     /**
      * Create Method to Edit the Contact using First Name.
@@ -173,11 +182,11 @@ public class AddressBook {
     }
     public static void main (String[] args) {
         System.out.println("Welcome to Address Book Program in AddressBook in Main Class");
-        System.out.println("Enter the Name of the Address Book");
+        System.out.println("Enter Name for Address Book");
         sc.nextLine();
         String addressBookName = sc.nextLine();
         if (addressBookSystem.containsKey(addressBookName)) {
-            System.out.println("This Address Book Already Exists");
+            System.out.println("This Name Already Exists");
         } else {
             AddressBook addAddressBook = new AddressBook();
             addressBookSystem.put(addressBookName, person);
