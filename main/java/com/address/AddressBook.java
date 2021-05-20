@@ -2,6 +2,7 @@ package com.address;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -102,12 +103,35 @@ public class AddressBook {
                 flag =1;
             }
             if(flag == 1) {
-                System.out.println("Contacts are Updated");
+                System.out.println("Updated");
+                for (int i = 0; i<person.size(); i++) {     //Printing the Updated Contact
+                    System.out.println("FirstName: " + person.get(i).firstName + "\nLastName: " + person.get(i).lastName + "\nAddress: " + person.get(i).address +
+                            "\nCity: " + person.get(i).city + "\nState: " + person.get(i).state + "\nZipCode: " + person.get(i).zip + "\nEmailAddress: " + person.get(i).eMail +
+                            "\nPhoneNumber: " + person.get(i).phoneNumber);
+                }
             }
             else {
-                System.out.println("Contact not Found for Editing");
+                System.out.println("Contact not Found. Please Try again");
             }
         }
+    }
+    /**
+     * Create Method to Delete the Contact. Will work  as there is no  contacts with  first name.
+     */
+    public static void deleteContactByFirstName() {
+        System.out.println("Enter the First Name to verify and delete the contact");
+        Scanner sc = new Scanner(System.in);
+        String firstName = sc.nextLine();
+        int flag = 0;
+        for (Iterator<ContactPerson> iterator = person.iterator(); iterator.hasNext();) {
+            ContactPerson temp = iterator.next();
+            if (temp.getFirstName().equalsIgnoreCase(firstName)){
+                iterator.remove();
+                System.out.println("The Contact with First Name " +firstName+ " Deleted Successfully");
+                return;
+            }
+        }
+        System.out.println("No contact With First Name " +firstName+ " will found" );
     }
 
     /**
@@ -131,7 +155,12 @@ public class AddressBook {
                     editContact.editContactDetails();
                     option = true;
                 }
-                case 3 -> System.exit(0);
+                case 3 -> {
+                    AddressBook deleteContact = new AddressBook();
+                    deleteContact.deleteContactByFirstName();       //Calling Delete Contact Method
+                    option = true;
+                }
+                case 4 -> System.exit(0);
                 default -> {
                     System.out.println("Choice is incorrect");
                 }
