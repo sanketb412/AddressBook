@@ -15,6 +15,35 @@ public class ContactPerson {
         this.eMail = eMail;
         this.phoneNumber = phoneNumber;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
+    public void setState(String state) {
+        this.state = state;
+    }
+    public void setZipCode(int zipCode) {
+        this.zip = zipCode;
+    }
+    public void setMail(String eMail) {
+        this.eMail = eMail;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public void addressBook() {
         System.out.println("First Name: "+firstName);
         System.out.println("Last Name: "+lastName);
