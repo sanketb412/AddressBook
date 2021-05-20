@@ -31,7 +31,7 @@ public class ContactPerson {
     public String getState() {
         return state;
     }
-    public int getZipCode() {
+    public int getZip() {
         return zip;
     }
     public String getMail() {
