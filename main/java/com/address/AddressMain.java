@@ -1,5 +1,6 @@
 package com.address;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -102,6 +103,26 @@ public class AddressMain {
             AddressBook value = entry.getValue();
             System.out.println("The Address Book: "+entry.getKey());
             value.getPersonNameByCity(cityName);
+        }
+    }
+
+    private void viewPersonByStateUsingHashmap(String stateName) {
+        for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+            AddressBook value = entry.getValue();
+            ArrayList<ContactPerson> contacts = value.personByState.entrySet().stream().filter(findState -> findState.getKey().equals(stateName)).map(Map.Entry::getValue).findFirst().orElse(null);
+            for(ContactPerson contact: contacts){
+                System.out.println("First Name: "+contact.getFirstName()+" Last Name: "+ contact.getLastName());
+            }
+        }
+    }
+
+    private void viewPersonByCityUsingHashMap(String cityName) {
+        for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+            AddressBook value = entry.getValue();
+            ArrayList<ContactPerson> contacts = value.personByCity.entrySet().stream().filter(findCity -> findCity.getKey().equals(cityName)).map(Map.Entry::getValue).findFirst().orElse(null);
+            for (ContactPerson contact : contacts) {
+                System.out.println("First Name: " + contact.getFirstName() + " Last Name: " + contact.getLastName());
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ public class ContactPerson {
         this.lastName = lastName;
     }
     public String getAddress() {
-        return firstName;
+        return address;
     }
     public void setAddress(String address) {
         this.address = address;

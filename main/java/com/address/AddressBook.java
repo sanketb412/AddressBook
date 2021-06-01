@@ -6,6 +6,13 @@ import java.util.stream.Collectors;
 public class AddressBook {
     public static ArrayList<ContactPerson> person = new ArrayList<ContactPerson>();//initializing array list
     public static Scanner sc = new Scanner(System.in);
+    public HashMap<String, ArrayList<ContactPerson>> personByState;
+    public HashMap<String, ArrayList<ContactPerson>> personByCity;
+
+    public AddressBook() {
+        personByCity = new HashMap<String, ArrayList<ContactPerson>>();
+        personByState = new HashMap<String, ArrayList<ContactPerson>>();
+    }
 
     static void deleteContact() {
         System.out.println("enter first name to delete contacts");
@@ -100,7 +107,7 @@ public class AddressBook {
         if (flag == 1) {
             System.out.println("Contacts updated");
         } else {
-            System.out.println("contacts not found");
+            System.out.println("Contacts not found");
         }
     }
 
