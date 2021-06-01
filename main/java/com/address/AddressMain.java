@@ -10,7 +10,7 @@ public class AddressMain {
     static Scanner sc = new Scanner(System.in); //initializing scanner class
     public static Map<String, AddressBook> addressBookListMap = new HashMap<String, AddressBook>();//initializing hashmap
     /**
-    main class to store new address book or check if the address book already there
+    check if the address book already there or not
      */
     public static void main(String[] args) {
         AddressMain addressBookMain = new AddressMain();
@@ -26,12 +26,12 @@ public class AddressMain {
             switch (option) {//getting option from user
                 case 1:
                     System.out.println("Enter the name of the address book");
-                    String addressBookName = sc.next();//getting address boo name from user
-                    if (addressBookListMap.containsKey(addressBookName)) {//checking if the same name address book is already there
+                    String addressBookName = sc.next();
+                    if (addressBookListMap.containsKey(addressBookName)) {
                         System.out.println("this address book already exists ");
                         break;
                     } else {
-                        addAddressBook(addressBookName);//storing address book in map
+                        addAddressBook(addressBookName);
                         break;
                     }
                 case 2:
@@ -68,16 +68,16 @@ public class AddressMain {
             System.out.println("Enter 2 to edit contact: ");
             System.out.println("Enter 3 to delete contact: ");
             System.out.println("Enter 4 to exit");
-            int choice = sc.nextInt();//getting choice from user to add,edit or delete
+            int choice = sc.nextInt();
             switch (choice) {
                 case 1:
-                    addressBook.addContact();// calling addContact method
+                    addressBook.addContact();
                     break;
                 case 2:
-                    addressBook.editContact();// calling editContact method
+                    addressBook.editContact();
                     break;
                 case 3:
-                    addressBook.deleteContact();// calling delete contact method
+                    addressBook.deleteContact();
                     break;
                 case 4:
                     flag = !flag;
@@ -124,5 +124,36 @@ public class AddressMain {
                 System.out.println("First Name: " + contact.getFirstName() + " Last Name: " + contact.getLastName());
             }
         }
+    }
+
+    public void CountByState(String state) {
+        int count = 0;
+        for(Map.Entry<String, AddressBook> entry: addressBookListMap.entrySet()){
+            for(int i=0;i<(entry.getValue()).person.size();i++)
+            {
+                ContactPerson contact= entry.getValue().person.get(i);
+
+                if(state.equals(contact.getState()))
+                {
+                    count++;
+                }
+
+            }
+        }
+        System.out.println("Total Person Count in state "+state+": "+count);
+    }
+    public void CountByCity(String city) {
+        int count = 0;
+        for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+            for (int i = 0; i < (entry.getValue()).person.size(); i++) {
+                ContactPerson d = (ContactPerson) entry.getValue().person.get(i);
+
+                if (city.equals(d.getCity())) {
+                    count++;
+                }
+
+            }
+        }
+        System.out.println("Total number of people in this city " + city + ": " + count);
     }
 }

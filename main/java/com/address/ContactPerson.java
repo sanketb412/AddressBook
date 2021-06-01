@@ -1,11 +1,11 @@
 package com.address;
 
 public class ContactPerson {
-    //declaring variables
+
     String firstName,lastName,address,city,state,email;
     int zipCode;
     long phoneNumber;
-    //calling constructor
+
     public  ContactPerson(String firstName, String lastName, String address, String city, String state, int zipCode, long phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName =lastName;
@@ -16,8 +16,8 @@ public class ContactPerson {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
-    /*
-    declaring getter and setter methods for variables
+    /**
+    getter and setter methods
      */
     public String getFirstName() {
         return firstName;

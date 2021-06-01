@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBook {
+    
     public static ArrayList<ContactPerson> person = new ArrayList<ContactPerson>();//initializing array list
     public static Scanner sc = new Scanner(System.in);
     public HashMap<String, ArrayList<ContactPerson>> personByState;
@@ -14,7 +15,7 @@ public class AddressBook {
         personByState = new HashMap<String, ArrayList<ContactPerson>>();
     }
 
-    static void deleteContact() {
+    public static void deleteContact() {
         System.out.println("enter first name to delete contacts");
         String firstName = sc.next(); // getting details from user to delete contact
         int flag = 0;
@@ -32,7 +33,7 @@ public class AddressBook {
         }
     }
 
-    static void editContact() {
+    public static void editContact() {
         System.out.println("enter first name to edit contacts");
         String firstName = sc.next();
         int flag = 0;
@@ -97,7 +98,6 @@ public class AddressBook {
                         String email = sc.next();
                         contacts.setEmail(email);
                         break;
-
                     }
                 }
                 flag = 1;
@@ -146,7 +146,7 @@ public class AddressBook {
         Set<ContactPerson> filterSet = person.stream().filter(n -> !ContactSet.add(n.getFirstName())).collect(Collectors.toSet());
 
         for (ContactPerson contact : filterSet) {
-            System.out.println("The Duplicate Contact is: " + contact.getFirstName() + " " + contact.getLastName());
+            System.out.println("The Duplicate Contact: " + contact.getFirstName() + " " + contact.getLastName());
         }
     }
 
