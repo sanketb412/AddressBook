@@ -5,8 +5,7 @@ public class ContactPerson {
     String firstName,lastName,address,city,state,email;
     int zipCode;
     long phoneNumber;
-
-    public  ContactPerson(String firstName, String lastName, String address, String city, String state, int zipCode, long phoneNumber, String email) {
+    public ContactPerson(String firstName, String lastName, String address, String city, String state, int zipCode, long phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName =lastName;
         this.address = address;

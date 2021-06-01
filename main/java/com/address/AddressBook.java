@@ -17,11 +17,11 @@ public class AddressBook {
 
     public static void deleteContact() {
         System.out.println("enter first name to delete contacts");
-        String firstName = sc.next(); // getting details from user to delete contact
+        String firstName = sc.next();
         int flag = 0;
         for (ContactPerson contacts : person) {
-            if (contacts.getFirstName().equals(firstName)) { //checking if the arraylist contains that details
-                person.remove(contacts);// deleting that details
+            if (contacts.getFirstName().equals(firstName)) {
+                person.remove(contacts);
                 flag = 1;
                 break;
             }
@@ -50,7 +50,7 @@ public class AddressBook {
                 System.out.println("Select the index for the contact detail you want to edit ");
 
                 int choice = sc.nextInt();
-                switch (choice) {//initializing switch case to edit contact
+                switch (choice) {
                     case 1: {
                         System.out.println("Enter First Name: ");
                         firstName = sc.next();
@@ -111,8 +111,7 @@ public class AddressBook {
         }
     }
 
-    public static void addContact() {
-        //initializing variables
+    public ArrayList<ContactPerson>  addContact() {
         String firstName, lastName, address, city, state, email;
         int zipCode, numberOfContacts;
         long phoneNumber;
@@ -137,11 +136,20 @@ public class AddressBook {
             email = sc.next();
             ContactPerson contacts = new ContactPerson(firstName, lastName, address, city, state, zipCode, phoneNumber, email);//creating object of contacts
             person.add(contacts);//storing  contacts to array list
+            if(!personByState.containsKey(state)){
+                personByState.put(state,new ArrayList<ContactPerson>());
+            }
+            personByState.get(state).add(contacts);
+
+            if(!personByCity.containsKey(city)){
+                personByCity.put(city,new ArrayList<ContactPerson>());
+            }
+            personByCity.get(city).add(contacts);
         }
+        return person;
     }
 
-    // Check Duplicate Entry
-    public void checkDuplicate() {
+    public static void checkDuplicate() {
         Set<String> ContactSet = new HashSet<>();
         Set<ContactPerson> filterSet = person.stream().filter(n -> !ContactSet.add(n.getFirstName())).collect(Collectors.toSet());
 

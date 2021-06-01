@@ -1,9 +1,7 @@
 package com.address;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressMain {
     private static AddressBook addressBook = new AddressBook();
@@ -21,7 +19,11 @@ public class AddressMain {
             System.out.println("2:Find Duplicate Entry in Address Book");
             System.out.println("3.Search Contact from a city");
             System.out.println("4.Search Contact from a State");
-            System.out.println("5.Exit");
+            System.out.println("5.View contact By State Using");
+            System.out.println("6.View Contact by city Using");
+            System.out.println("7.Count Contact By State");
+            System.out.println("8.Count Contact By City");
+            System.out.println("9.Exit");
             int option = sc.nextInt();
             switch (option) {//getting option from user
                 case 1:
@@ -46,13 +48,36 @@ public class AddressMain {
                     addressBookMain.searchPersonByCity(CityName);
                     break;
 
-                case 4:{
+                case 4:
                     System.out.println("Enter Name of State: ");
                     String StateName = sc.next();
                     addressBookMain.searchPersonByState(StateName);
                     break;
-                }
                 case 5:
+                    System.out.println("Enter Name of State: ");
+                    String stateName1 = sc.next();
+                    addressBookMain.viewPersonByStateUsingHashmap(stateName1);
+                    break;
+
+                case 6:
+                    System.out.println("Enter Name of City: ");
+                    String cityName1 = sc.next();
+                    addressBookMain.viewPersonByCityUsingHashMap(cityName1);
+                    break;
+
+                case 7:
+                    System.out.println("Enter Name of State: ");
+                    String stateName2 = sc.next();
+                    addressBookMain.CountByState(stateName2);
+                    break;
+
+                case 8:
+                    System.out.println("Enter Name of City: ");
+                    String cityName2 = sc.next();
+                    addressBookMain.CountByCity(cityName2);
+                    break;
+
+                case 9:
                     flag = false;
                     break;
             }
@@ -83,7 +108,7 @@ public class AddressMain {
                     flag = !flag;
                     break;
                 default:
-                    System.out.println("Enter valid number");
+                    System.out.println("Please Enter valid number");
                     break;
             }
         }
@@ -155,5 +180,16 @@ public class AddressMain {
             }
         }
         System.out.println("Total number of people in this city " + city + ": " + count);
+    }
+    private void sortContactByName() {
+        for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+            AddressBook value = entry.getValue();
+            List<ContactPerson> sortedList = value.person.stream().sorted(Comparator.comparing(ContactPerson::getFirstName)).collect(Collectors.toList());
+
+            for (ContactPerson contact : sortedList) {
+                System.out.println("First Name: " + contact.getFirstName());
+                System.out.println("Last Name: " + contact.getLastName());
+            }
+        }
     }
 }
