@@ -78,6 +78,22 @@ public class AddressMain {
                     break;
 
                 case 9:
+                    System.out.println("Sort Contact");
+                    addressBookMain.sortContactByName();
+
+                case 10:
+                    addressBookMain.sortContactByCity();
+                    break;
+
+                case 11:
+                    addressBookMain.sortContactByState();
+                    break;
+
+                case 12:
+                    addressBookMain.sortContactByZipCode();
+                    break;
+
+                case 13:
                     flag = false;
                     break;
             }
@@ -185,6 +201,41 @@ public class AddressMain {
         for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
             AddressBook value = entry.getValue();
             List<ContactPerson> sortedList = value.person.stream().sorted(Comparator.comparing(ContactPerson::getFirstName)).collect(Collectors.toList());
+
+            for (ContactPerson contact : sortedList) {
+                System.out.println("First Name: " + contact.getFirstName());
+                System.out.println("Last Name: " + contact.getLastName());
+            }
+        }
+    }
+    private void sortContactByZipCode() {
+        for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
+            AddressBook value = entry.getValue();
+            List<ContactPerson> sortedList = value.person.stream().sorted(Comparator.comparing(ContactPerson::getZipCode)).collect(Collectors.toList());
+
+            for(ContactPerson contact:sortedList){
+                System.out.println("First Name: "+contact.getFirstName());
+                System.out.println("Last Name: "+contact.getLastName());
+            }
+        }
+    }
+
+    private void sortContactByState() {
+        for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
+            AddressBook value = entry.getValue();
+            List<ContactPerson> sortedList = value.person.stream().sorted(Comparator.comparing(ContactPerson::getState)).collect(Collectors.toList());
+
+            for(ContactPerson contact:sortedList){
+                System.out.println("First Name: "+contact.getFirstName());
+                System.out.println("Last Name: "+contact.getLastName());
+            }
+        }
+    }
+
+    private void sortContactByCity() {
+        for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+            AddressBook value = entry.getValue();
+            List<ContactPerson> sortedList = value.person.stream().sorted(Comparator.comparing(ContactPerson::getCity)).collect(Collectors.toList());
 
             for (ContactPerson contact : sortedList) {
                 System.out.println("First Name: " + contact.getFirstName());

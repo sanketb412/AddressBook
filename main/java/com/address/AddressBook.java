@@ -135,7 +135,7 @@ public class AddressBook {
             System.out.println("Enter Email");
             email = sc.next();
             ContactPerson contacts = new ContactPerson(firstName, lastName, address, city, state, zipCode, phoneNumber, email);//creating object of contacts
-            person.add(contacts);//storing  contacts to array list
+            person.add(contacts);
             if(!personByState.containsKey(state)){
                 personByState.put(state,new ArrayList<ContactPerson>());
             }
