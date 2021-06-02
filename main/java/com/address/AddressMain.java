@@ -288,6 +288,9 @@ public class AddressMain<CsvValidationException extends Throwable> {
         }
     }
 
+    /**
+     * Writing file into contacts_details.csv
+     */
     public void CSVWrite(String First_Name,String Last_Name,String Address,String City,String State,int ZipCode,long Phone_number,String EmailID){
         try {
             String filepath = "E:\\ideaproject\\AddressBook\\src\\main\\resources\\contacts_detail.csv";
