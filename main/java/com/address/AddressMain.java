@@ -1,11 +1,11 @@
 package com.address;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import javax.swing.*;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AddressMain {
+public class AddressMain<CsvValidationException extends Throwable> {
     private static AddressBook addressBook = new AddressBook();
     static Scanner sc = new Scanner(System.in); //initializing scanner class
     public static Map<String, AddressBook> addressBookListMap = new HashMap<String, AddressBook>();//initializing hashmap
@@ -100,7 +100,17 @@ public class AddressMain {
 //                    break;
 //            }
 //        }
-        addressBookMain.fileRead();
+//        addressBookMain.fileRead();
+        addressBookMain.CSVRead();
+        String First_Name = "ASEA";
+        String Last_Name = "SYGA";
+        String Address = "SHHHEEE";
+        String City = "Maha";
+        String State = "Mauala";
+        int ZipCode = 8475435;
+        long Phone_number = 2134243434;
+        String EmailID = "sakerwjm@gjans.comn";
+        addressBookMain.CSVWrite(First_Name,Last_Name,Address,City,State,ZipCode,Phone_number,EmailID);
     }
     /**
     addAddressBook method to add,edit and delete in address book
@@ -258,6 +268,41 @@ public class AddressMain {
 
         while(fileSC.hasNextLine()){
             System.out.println(fileSC.nextLine());
+        }
+    }
+    /**
+     * Reading file from contacts_details.csv
+     */
+    private void CSVRead() {
+        String path = "E:\\ideaproject\\AddressBook\\src\\main\\resources\\contacts_detail.csv";
+        String line = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            while((line = br.readLine()) != null){
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void CSVWrite(String First_Name,String Last_Name,String Address,String City,String State,int ZipCode,long Phone_number,String EmailID){
+        try {
+            String filepath = "E:\\ideaproject\\AddressBook\\src\\main\\resources\\contacts_detail.csv";
+            FileWriter fw = new FileWriter(filepath,true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+
+            pw.print("\n"+First_Name+","+Last_Name+","+Address+","+City+","+State+","+ZipCode+","+Phone_number+","+EmailID);
+            pw.flush();
+            pw.close();
+
+            JOptionPane.showMessageDialog(null,"Record saved");
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,"Record not saved");
         }
     }
 }
