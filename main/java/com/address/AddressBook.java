@@ -9,6 +9,7 @@ public class AddressBook {
     public static Scanner sc = new Scanner(System.in);
     public HashMap<String, ArrayList<ContactPerson>> personByState;
     public HashMap<String, ArrayList<ContactPerson>> personByCity;
+    public static String AddressBook_File = "Address.txt";
 
     public AddressBook() {
         personByCity = new HashMap<String, ArrayList<ContactPerson>>();
@@ -134,7 +135,7 @@ public class AddressBook {
             phoneNumber = sc.nextLong();
             System.out.println("Enter Email");
             email = sc.next();
-            ContactPerson contacts = new ContactPerson(firstName, lastName, address, city, state, zipCode, phoneNumber, email);//creating object of contacts
+            ContactPerson contacts = new ContactPerson(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
             person.add(contacts);
             if(!personByState.containsKey(state)){
                 personByState.put(state,new ArrayList<ContactPerson>());
@@ -174,5 +175,6 @@ public class AddressBook {
             System.out.println("Last Name: " + contact.getLastName());
         }
     }
+
 }
 

@@ -1,0 +1,10 @@
+1) Contact-1
+First_Name:- Deepak
+Last_Name:- More
+Address:- XYZ
+city:- XYZ
+State:- XYZ
+Phone_number:- 8673047566
+ZipCode:- 233009
+emailID:- deepakM34@XYZ.com
+
