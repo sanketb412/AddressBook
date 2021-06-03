@@ -1,9 +1,16 @@
 package com.address;
 
+import com.google.gson.Gson;
+
 import javax.swing.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.address.AddressBook.person;
 
 public class AddressMain<CsvValidationException extends Throwable> {
     private static AddressBook addressBook = new AddressBook();
@@ -101,7 +108,7 @@ public class AddressMain<CsvValidationException extends Throwable> {
 //            }
 //        }
 //        addressBookMain.fileRead();
-        addressBookMain.CSVRead();
+//        addressBookMain.CSVRead();
         String First_Name = "ASEA";
         String Last_Name = "SYGA";
         String Address = "SHHHEEE";
@@ -110,7 +117,26 @@ public class AddressMain<CsvValidationException extends Throwable> {
         int ZipCode = 8475435;
         long Phone_number = 2134243434;
         String EmailID = "sakerwjm@gjans.comn";
-        addressBookMain.CSVWrite(First_Name,Last_Name,Address,City,State,ZipCode,Phone_number,EmailID);
+//        addressBookMain.CSVWrite(First_Name,Last_Name,Address,City,State,ZipCode,Phone_number,EmailID);
+
+
+        /**
+         * calling writeDataFromJSON Method into main
+         */
+        try {
+            addressBookMain.writeDataInJSon(First_Name,Last_Name,Address,City,State,ZipCode,Phone_number,EmailID);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /**
+         * calling readDataFromJSON Method into main
+         */
+        try {
+            addressBookMain.readDataFromJson();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
     /**
     addAddressBook method to add,edit and delete in address book
@@ -213,7 +239,7 @@ public class AddressMain<CsvValidationException extends Throwable> {
     private void sortContactByName() {
         for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
             AddressBook value = entry.getValue();
-            List<ContactPerson> sortedList = value.person.stream().sorted(Comparator.comparing(ContactPerson::getFirstName)).collect(Collectors.toList());
+            List<ContactPerson> sortedList = person.stream().sorted(Comparator.comparing(ContactPerson::getFirstName)).collect(Collectors.toList());
 
             for (ContactPerson contact : sortedList) {
                 System.out.println("First Name: " + contact.getFirstName());
@@ -224,7 +250,7 @@ public class AddressMain<CsvValidationException extends Throwable> {
     private void sortContactByZipCode() {
         for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
             AddressBook value = entry.getValue();
-            List<ContactPerson> sortedList = value.person.stream().sorted(Comparator.comparing(ContactPerson::getZipCode)).collect(Collectors.toList());
+            List<ContactPerson> sortedList = person.stream().sorted(Comparator.comparing(ContactPerson::getZipCode)).collect(Collectors.toList());
 
             for(ContactPerson contact:sortedList){
                 System.out.println("First Name: "+contact.getFirstName());
@@ -236,7 +262,7 @@ public class AddressMain<CsvValidationException extends Throwable> {
     private void sortContactByState() {
         for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
             AddressBook value = entry.getValue();
-            List<ContactPerson> sortedList = value.person.stream().sorted(Comparator.comparing(ContactPerson::getState)).collect(Collectors.toList());
+            List<ContactPerson> sortedList = person.stream().sorted(Comparator.comparing(ContactPerson::getState)).collect(Collectors.toList());
 
             for(ContactPerson contact:sortedList){
                 System.out.println("First Name: "+contact.getFirstName());
@@ -248,7 +274,7 @@ public class AddressMain<CsvValidationException extends Throwable> {
     private void sortContactByCity() {
         for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
             AddressBook value = entry.getValue();
-            List<ContactPerson> sortedList = value.person.stream().sorted(Comparator.comparing(ContactPerson::getCity)).collect(Collectors.toList());
+            List<ContactPerson> sortedList = person.stream().sorted(Comparator.comparing(ContactPerson::getCity)).collect(Collectors.toList());
 
             for (ContactPerson contact : sortedList) {
                 System.out.println("First Name: " + contact.getFirstName());
@@ -306,6 +332,46 @@ public class AddressMain<CsvValidationException extends Throwable> {
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null,"Record not saved");
+        }
+    }
+
+    /**
+     * Reading Contacts from JSON file
+     * @throws IOException
+     */
+    public void readDataFromJson() throws IOException {
+        ArrayList<ContactPerson> contactList;
+        Path filePath = Paths.get(
+                                  "E:\\ideaproject\\AddressBook\\src\\main\\resources\\Contacts.json");
+        try (Reader reader = Files.newBufferedReader(filePath);) {
+            Gson gson = new Gson();
+            contactList = new ArrayList<ContactPerson>(Arrays.asList(gson.fromJson(reader, ContactPerson[].class)));
+            for (ContactPerson contact : contactList) {
+                System.out.println("Firstname : " + contact.getFirstName());
+                System.out.println("Lastname : " + contact.getLastName());
+                System.out.println("Address : " + contact.getAddress());
+                System.out.println("City : " + contact.getCity());
+                System.out.println("State : " + contact.getState());
+                System.out.println("Zip : " + contact.getZipCode());
+                System.out.println("Phone number : " + contact.getPhoneNumber());
+                System.out.println("Email : " + contact.getEmail());
+            }
+        }
+
+    }
+
+    /**
+     * Write into JSON file
+     */
+    public void writeDataInJSon(String First_Name,String Last_Name,String Address,String City,String State,int ZipCode,long Phone_number,String EmailID) throws IOException {
+        {
+            Path filePath = Paths.get(
+                                      "E:\\ideaproject\\AddressBook\\src\\main\\resources\\Contacts.json");
+            Gson gson = new Gson();
+            String json = gson.toJson(person);
+            FileWriter writer = new FileWriter(String.valueOf(filePath));
+            writer.write(json);
+            writer.close();
         }
     }
 }
